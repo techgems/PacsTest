@@ -82,9 +82,12 @@ public class TimeEntryPagesService : ITimeEntryPageService
     public bool InsertTimeEntry(TimeEntryFormComponent model) 
     {
         try 
-        { 
+        {
+            var lastTimeEntry = _timeEntryRepository.GetAllTimeEntries().OrderBy(x => x.TimeEntryId).Last();
+
             _timeEntryRepository.InsertTimeEntry(new TimeEntry
             {
+                TimeEntryId = lastTimeEntry.TimeEntryId + 1,
                 EmployeeId = model.EmployeeId,
                 Date = model.Date!.Value,
                 InTime = model.InTime!.Value,

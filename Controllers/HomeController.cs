@@ -38,15 +38,18 @@ namespace PacsTest.Controllers
         public async Task<IActionResult> SaveTimeEntry([FromForm] TimeEntryFormComponent model)
         {
             var res = await _validator.ValidateAsync(model);
-            model.EmployeeList = _timeEntryPageService.GetEmployeesForFilter();
-
+            
             if (!res.IsValid)
             {
                 res.AddToModelState(this.ModelState);
             }
+            else
+            {
+                _timeEntryPageService.InsertTimeEntry(model);
+                ViewData["RefreshAfterSuccess"] = true;
+            }
 
-            _timeEntryPageService.InsertTimeEntry(model);
-            ViewData["RefreshAfterSuccess"] = true;
+            model.EmployeeList = _timeEntryPageService.GetEmployeesForFilter();
 
             return PartialView("~/Views/Components/TimeEntryForm.cshtml", model);
         }

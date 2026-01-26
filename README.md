@@ -16,6 +16,8 @@ and my own library written by me called [RazorComponentTagHelpers](https://razor
 
 This project in particular has massive room for improvement, the UX can be improved with toast-like messages.
 
-From the code side of things, some of the models used for the server components can be improved for better separation of concerns, and the filters could be made easier to work with if I were to rework them into using HTMX, which I didn't do at the beginning thinking I wasn't going to need to use the library.
+I also would add ordering to the dates in order to provide a better overview of the data.
+
+From the code side of things, some of the models used for the server components can be improved for better separation of concerns, and the filters could be made easier to work with if I were to rework them into using HTMX, which I didn't do at the beginning thinking I wasn't going to need it.
 
 Probably the most useful library in this use case was Fluent Validation, which made it easy to encapsulate the validation logic in a less obtrussive way while also keeping it more similar to a configuration file, something you cannot do with decorator validations alone.
