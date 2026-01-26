@@ -1,0 +1,52 @@
+﻿@model PacsTest.ComponentTagHelpers.TimeEntryFormComponent;
+
+@{
+    var SuccessfulAdd = ViewData.ContainsKey("RefreshAfterSuccess");
+}
+
+<form hx-controller="Home" hx-action="SaveTimeEntry" hx-swap="outerHTML" hx-post>
+    <div class="modal-header">
+        <h5 class="modal-title">Add new time entry</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <div class="form-floating mb-3">
+            <select class="form-select" asp-for="EmployeeId">
+                @foreach (var e in Model.EmployeeList)
+                {
+                    <option value="@e.EmployeeId">@e.FullName</option>
+                }
+            </select>
+            <label asp-for="EmployeeId" class="form-label"></label>
+            <span class="text-danger" asp-validation-for="EmployeeId"></span>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input asp-for="Date" class="form-control" />
+            <label asp-for="Date" class="form-label"></label>
+            <span class="text-danger" asp-validation-for="Date"></span>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input asp-for="InTime" class="form-control" />
+            <label asp-for="InTime" class="form-label"></label>
+            <span class="text-danger" asp-validation-for="InTime"></span>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input asp-for="OutTime" class="form-control" />
+            <label asp-for="OutTime" class="form-label"></label>
+            <span class="text-danger" asp-validation-for="OutTime"></span>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+    </div>
+</form>
+@if (SuccessfulAdd)
+{
+    <script defer>
+        window.location.reload();
+    </script>
+}

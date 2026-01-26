@@ -1,0 +1,105 @@
+﻿@using System.Globalization
+@model TimeEntryViewModel
+@{
+    ViewData["Title"] = "Time Entries";
+
+    var employeeFilterClientsideValue = Model.SelectedEmployeeFilter == null ? "null" : Model.SelectedEmployeeFilter.EmployeeId.ToString();
+
+    var dateFilterClientsideValue = Model.SelectedDateFilter == null ? "null" : Model.SelectedDateFilter.Value.ToString();
+}
+
+<div class="text-center">
+    <h1 class="">Time Entries</h1>
+</div>
+
+<time-entry-modal-form employee-list="@Model.EmployeeFilterList" />
+
+<div class="mb-4">
+    <h3 class="text-md mb-3">Filters</h3>
+
+    <div class="d-flex justify-content-between" x-data="{ selectedEmployee: '@employeeFilterClientsideValue', selectedDate: '@dateFilterClientsideValue' }">
+        <div class="d-inline-flex">
+            <div class="me-2 form-floating">
+                <select id="employeeSelect" class="form-select" x-model="selectedEmployee">
+                    <option value="null" selected="@(Model.SelectedEmployeeFilter is null ? "selected" : "null")">--</option>
+                    @foreach (var e in Model.EmployeeFilterList)
+                    {
+                        <option 
+                            value="@e.EmployeeId" 
+                            selected="@(Model.SelectedEmployeeFilter?.EmployeeId == e.EmployeeId ? "selected" : "null")"
+                        >
+                            @e.FullName
+                        </option>
+                    }
+                </select>
+                <label for="employeeSelect">Employee</label>
+            </div>
+
+            <div class="ms-2 form-floating">
+                
+                <select id="dateSelect" class="form-select" x-model="selectedDate">
+                    <option value="null" selected="@(!Model.SelectedDateFilter.HasValue ? "selected" : "null")">--</option>
+                    @foreach (var d in Model.DateFilterList)
+                    {
+                        <option 
+                            value="@d"
+                            selected="@(Model.SelectedDateFilter == d ? "selected" : "null")"
+                        >
+                            @d.ToString("MMM dd, yyyy", CultureInfo.InvariantCulture)
+                        </option>
+                    }
+                </select>
+                <label for="dateSelect">Date</label>
+            </div>
+        </div>
+        <div>
+            <button x-on:click="navigateToAll" class="btn btn-outline-primary">See All</button>
+            <button x-on:click="navigateToFilter" class="btn btn-primary">Filter</button>
+        </div>
+    </div>
+</div>
+
+@if (Model.EntriesList.Count == 0)
+{
+    <span>No Results found, please try updating your filter.</span>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Employee</th>
+                <th>Date</th>
+                <th>In Time</th>
+                <th>Out Time</th>
+                <th>Duration (hours)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var entry in Model.EntriesList)
+            {
+                <tr>
+                    <td>@entry.EmployeeFullname</td>
+                    <td>@entry.Date.ToString("MMM dd, yyyy", CultureInfo.InvariantCulture)</td>
+                    <td>@entry.InTime.ToString("t")</td>
+                    <td>@entry.OutTime.ToString("t")</td>
+                    <td>@entry.Duration.TotalHours</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+
+@section Scripts {
+    <script>
+        function navigateToAll() {
+            window.location.href = "/Home/Index";
+        }
+
+        function navigateToFilter() {
+            window.location.href = `/Home/Index?employeeId=${this.selectedEmployee}&date=${this.selectedDate}`;
+        }
+    </script>
+}

@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Data\CSV\Employees.csv" />
+    <Content Include="Data\CSV\TimeEntries.csv" />
+  </ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="CsvHelper" Version="33.1.0" />
+	  <PackageReference Include="FluentValidation" Version="12.1.1" />
+	  <PackageReference Include="Htmx" Version="1.9.0" />
+	  <PackageReference Include="Htmx.TagHelpers" Version="1.9.0" />
+	  <PackageReference Include="TechGems.RazorComponentTagHelpers" Version="1.1.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="wwwroot\data\" />
+	</ItemGroup>
+
+</Project>
