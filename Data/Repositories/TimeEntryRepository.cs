@@ -1,8 +1,10 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
+using CsvHelper.TypeConversion;
 using PacsTest.Data.CsvMappers;
 using PacsTest.Data.Entities;
 using PacsTest.Data.Repositories.Interfaces;
+using System.Formats.Asn1;
 using System.Globalization;
 
 namespace PacsTest.Data.Repositories;
@@ -32,10 +34,14 @@ public class TimeEntryRepository : ITimeEntryRepository
             HasHeaderRecord = false,
         };
 
+        var options = new TypeConverterOptions { Formats = new[] { "yyyy-MM-dd" } };
+
         using (var stream = File.Open("Data/CSV/TimeEntries.csv", FileMode.Append))
         using (var writer = new StreamWriter(stream))
         using (var csv = new CsvWriter(writer, config))
         {
+            csv.Context.TypeConverterOptionsCache.AddOptions<DateOnly>(options);    
+            csv.NextRecord();
             csv.WriteRecord(timeEntry);
         }
 

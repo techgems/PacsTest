@@ -15,7 +15,7 @@ public class EmployeeTimeEntryValidator : AbstractValidator<TimeEntryFormCompone
 
         RuleFor(x => x)
             .Must(x => x.OutTime > x.InTime)
-            .WithMessage("Time Out must be after Time In.");
+            .WithMessage("Time Out must be after Time In.").WithName("InTime");
 
         var fullEntriesList = timeEntryPageService.GetTimeEntriesForEmployees().EntriesList;
 

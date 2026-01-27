@@ -8,9 +8,9 @@ This project is the implementation of the take home challenge. The libraries use
 - [FluentValidation](https://docs.fluentvalidation.net/en/latest/) 
 - Bootstrap 5
 - [AlpineJS](https://alpinejs.dev/)
-- [Htmx](https://htmx.org/)]
-
-and my own library written by me called [RazorComponentTagHelpers](https://razor-components.techgems.net/) which as of January 2026 has approximately 37 000 downloads.
+- [Htmx](https://htmx.org/)
+- [Htmx.NET](https://github.com/khalidabuhakmeh/Htmx.Net): A set of tools to make it easier to work with Htmx in ASP.NET Core projects. 
+- [RazorComponentTagHelpers](https://razor-components.techgems.net/): My own library to allow the usage of server-rendered components without Blazor. As of January 2026 it has a total of 37 000 downloads on Nuget.
 
 ## Comments and things to improve
 
@@ -20,4 +20,4 @@ I also would add ordering to the dates in order to provide a better overview of 
 
 From the code side of things, some of the models used for the server components can be improved for better separation of concerns, and the filters could be made easier to work with if I were to rework them into using HTMX, which I didn't do at the beginning thinking I wasn't going to need it.
 
-Probably the most useful library in this use case was Fluent Validation, which made it easy to encapsulate the validation logic in a less obtrussive way while also keeping it more similar to a configuration file, something you cannot do with decorator validations alone.
+Probably the most useful library in this use case was Fluent Validation, which made it easy to encapsulate the validation logic in a less obtrussive way while also keeping it more similar to a configuration file, something you cannot do with Data Annotation attributes alone.
