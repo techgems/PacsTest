@@ -1,14 +1,14 @@
-﻿@model PacsTest.ComponentTagHelpers.TimeEntryModalFormComponent;
+﻿@model PacsTest.ComponentTagHelpers.BootstrapModalComponent;
 
 <div>
     <div>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#timeEntryModal">Add Time Entry</button>
     </div>
 
-    <div class="modal fade" tabindex="-1" role="dialog" id="timeEntryModal" aria-labelledby="exampleModalLabel">
+    <div class="modal fade" tabindex="-1" role="dialog" id="timeEntryModal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <time-entry-form employee-list="Model.EmployeeList" />
+                @Model.ChildContent
             </div>
         </div>
     </div>
